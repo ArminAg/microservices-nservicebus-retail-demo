@@ -1,4 +1,5 @@
-﻿using NServiceBus;
+﻿using Messages.Events;
+using NServiceBus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,9 @@ namespace Billing
             var endpointConfiguration = new EndpointConfiguration("Billing");
 
             var transport = endpointConfiguration.UseTransport<MsmqTransport>();
+
+            var routing = transport.Routing();
+            routing.RegisterPublisher(typeof(OrderPlacedEvent), "Sales");
 
             endpointConfiguration.UseSerialization<JsonSerializer>();
             endpointConfiguration.UsePersistence<InMemoryPersistence>();
