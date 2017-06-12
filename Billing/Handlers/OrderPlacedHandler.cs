@@ -16,7 +16,13 @@ namespace Billing.Handlers
         public Task Handle(OrderPlacedEvent message, IMessageHandlerContext context)
         {
             logger.Info($"Received OrderPlacedEvent, OrderId = { message.OrderId } - Charging credit card..");
-            return Task.CompletedTask;
+
+            var orderBilled = new OrderBilledEvent
+            {
+                OrderId = message.OrderId
+            };
+
+            return context.Publish(orderBilled);
         }
     }
 }
