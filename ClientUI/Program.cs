@@ -34,7 +34,7 @@ namespace ClientUI
                         log.Info($"Sending PlaceOrderCommand, OrderId = { command.OrderId }");
                         // The Local part means that we are not sending to an external endpoint (in a different process) so we 
                         // intend to handle the message in the same endpoint that sent it
-                        await endpointInstance.SendLocal(command)
+                        await endpointInstance.Send(command)
                             .ConfigureAwait(false);
                         break;
 
@@ -61,6 +61,9 @@ namespace ClientUI
             var endpointConfiguration = new EndpointConfiguration("ClientUI");
             // This setting defines the transport that NServiceBus will use to send and receive messages
             var transport = endpointConfiguration.UseTransport<MsmqTransport>();
+            // Specify the logical routing for PlaceOrderCommand
+            var routing = transport.Routing();
+            routing.RouteToEndpoint(typeof(PlaceOrderCommand), "Sales");
             // When sending messages, an endpoint needs to serialize message objects to a stream, and then deserialize the stream back to a message object on the receiving end
             endpointConfiguration.UseSerialization<JsonSerializer>();
             // A persistence is required to store some data in between handling messages
