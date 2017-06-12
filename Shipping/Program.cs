@@ -25,6 +25,7 @@ namespace Shipping
 
             var routing = transport.Routing();
             routing.RegisterPublisher(typeof(OrderBilledEvent), "Billing");
+            routing.RegisterPublisher(typeof(OrderPlacedEvent), "Sales");
 
             endpointConfiguration.UseSerialization<JsonSerializer>();
             endpointConfiguration.UsePersistence<InMemoryPersistence>();
