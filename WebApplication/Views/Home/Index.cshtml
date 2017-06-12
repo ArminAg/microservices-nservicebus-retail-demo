@@ -1,4 +1,7 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@model WebApplication.ViewModels.PlaceOrderViewModel
 
+@using (Html.BeginForm())
+{
+    @Html.EditorForModel()
+    <button type="submit">Submit</button>
+}
