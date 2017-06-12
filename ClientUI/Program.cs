@@ -1,4 +1,6 @@
-﻿using NServiceBus;
+﻿using Messages.Commands;
+using NServiceBus;
+using NServiceBus.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,43 @@ namespace ClientUI
 {
     class Program
     {
+        static ILog log = LogManager.GetLogger<Program>();
+
+        static async Task RunLoop(IEndpointInstance endpointInstance)
+        {
+            while (true)
+            {
+                log.Info("Press 'P' to place an order, or 'Q' to quit.");
+                var key = Console.ReadKey();
+                Console.WriteLine();
+
+                switch (key.Key)
+                {
+                    case ConsoleKey.P:
+                        // Instantiate the command
+                        var command = new PlaceOrderCommand
+                        {
+                            OrderId = Guid.NewGuid().ToString()
+                        };
+
+                        // Send the command to the local endpoint
+                        log.Info($"Sending PlaceOrderCommand, OrderId = { command.OrderId }");
+                        // The Local part means that we are not sending to an external endpoint (in a different process) so we 
+                        // intend to handle the message in the same endpoint that sent it
+                        await endpointInstance.SendLocal(command)
+                            .ConfigureAwait(false);
+                        break;
+
+                    case ConsoleKey.Q:
+                        return;
+
+                    default:
+                        log.Info("Unknown input. PLease try again.");
+                        break;
+                }
+            }
+        }
+
         static void Main(string[] args)
         {
             AsyncMain().GetAwaiter().GetResult();
@@ -31,11 +70,9 @@ namespace ClientUI
 
             var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
 
-            Console.WriteLine("Press enter to exit");
-            Console.ReadLine();
+            await RunLoop(endpointInstance).ConfigureAwait(false);
 
             await endpointInstance.Stop().ConfigureAwait(false);
-
         }
     }
 }
