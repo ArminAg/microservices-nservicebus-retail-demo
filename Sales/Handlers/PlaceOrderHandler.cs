@@ -1,4 +1,5 @@
 ﻿using Messages.Commands;
+using Messages.Events;
 using NServiceBus;
 using NServiceBus.Logging;
 using System;
@@ -19,7 +20,14 @@ namespace Sales.Handlers
         {
             logger.Info($"Received PlaceOrderCommand, OrderId = { message.OrderId }");
             // Task.CompletedTask requires .NET 4.6.1
-            return Task.CompletedTask;
+
+            // This is normally where some business logic would occur
+
+            var orderPlaced = new OrderPlacedEvent
+            {
+                OrderId = message.OrderId
+            };
+            return context.Publish(orderPlaced);
         }
     }
 }
