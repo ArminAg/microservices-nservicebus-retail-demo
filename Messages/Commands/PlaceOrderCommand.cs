@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Messages.Commands
 {
-    class PlaceOrderCommand : ICommand
+    public class PlaceOrderCommand : ICommand
     {
         public string OrderId { get; set; }
     }
