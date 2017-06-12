@@ -16,7 +16,13 @@ namespace Shipping.Handlers
         public Task Handle(OrderBilledEvent message, IMessageHandlerContext context)
         {
             logger.Info($"Received OrderBilledEvent, OrderId = { message.OrderId } - Shipping order...");
-            return Task.CompletedTask;
+
+            var shippingProcessedEvent = new ShippingProcessedEvent
+            {
+                OrderId = message.OrderId
+            };
+
+            return context.Publish(shippingProcessedEvent);
         }
     }
 }
