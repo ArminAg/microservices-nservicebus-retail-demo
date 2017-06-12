@@ -10,6 +10,12 @@ namespace ClientUI
     {
         static void Main(string[] args)
         {
+            AsyncMain().GetAwaiter().GetResult();
+        }
+
+        static async Task AsyncMain()
+        {
+
         }
     }
 }
