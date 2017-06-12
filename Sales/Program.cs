@@ -11,6 +11,7 @@ namespace Sales
     {
         static void Main(string[] args)
         {
+            AsyncMain().GetAwaiter().GetResult();
         }
 
         static async Task AsyncMain()
@@ -32,7 +33,6 @@ namespace Sales
             Console.ReadLine();
 
             await endpointInstance.Stop().ConfigureAwait(false);
-
         }
     }
 }
