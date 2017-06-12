@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using Messages.Events;
 using NServiceBus;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,11 @@ namespace WebApplication
 
             var endpointConfiguration = new EndpointConfiguration("WebApplication");
             endpointConfiguration.UsePersistence<InMemoryPersistence>();
-            endpointConfiguration.UseTransport<MsmqTransport>();
+            var transport = endpointConfiguration.UseTransport<MsmqTransport>();
+
+            var routing = transport.Routing();
+            routing.RegisterPublisher(typeof(ShippingProcessedEvent), "Shipping");
+
             endpointConfiguration.UseSerialization<JsonSerializer>();
             endpointConfiguration.SendFailedMessagesTo("error");
             endpointConfiguration.EnableInstallers();
