@@ -34,4 +34,5 @@ namespace Billing
 
             await endpointInstance.Stop().ConfigureAwait(false);
         }
+    }
 }
