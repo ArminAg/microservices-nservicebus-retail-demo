@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipping", "Shipping\Shippi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication", "WebApplication\WebApplication.csproj", "{2B1B234F-8099-4626-B978-49D9F5CBE81F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{BAE2E13B-6FF0-49F4-8925-8CD8A92790E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{2B1B234F-8099-4626-B978-49D9F5CBE81F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B1B234F-8099-4626-B978-49D9F5CBE81F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B1B234F-8099-4626-B978-49D9F5CBE81F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAE2E13B-6FF0-49F4-8925-8CD8A92790E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAE2E13B-6FF0-49F4-8925-8CD8A92790E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAE2E13B-6FF0-49F4-8925-8CD8A92790E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAE2E13B-6FF0-49F4-8925-8CD8A92790E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
