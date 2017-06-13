@@ -193,6 +193,8 @@
     </Compile>
     <Compile Include="Handlers\StartPlanningHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sagas\PlanningSaga.cs" />
+    <Compile Include="Sagas\PlanningSagaData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
