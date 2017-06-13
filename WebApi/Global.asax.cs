@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
+using Messages.Events;
 using NServiceBus;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,11 @@ namespace WebApi
 
             var endpointConfiguration = new EndpointConfiguration("WebApi");
             endpointConfiguration.UsePersistence<InMemoryPersistence>();
-            endpointConfiguration.UseTransport<MsmqTransport>();
+            var transport = endpointConfiguration.UseTransport<MsmqTransport>();
+
+            var routing = transport.Routing();
+            routing.RegisterPublisher(typeof(ShippingProcessedEvent), "Shipping");
+
             endpointConfiguration.UseSerialization<JsonSerializer>();
             endpointConfiguration.SendFailedMessagesTo("error");
             endpointConfiguration.EnableInstallers();
