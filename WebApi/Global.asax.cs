@@ -37,6 +37,8 @@ namespace WebApi
             var endpointConfiguration = new EndpointConfiguration("WebApi");
             endpointConfiguration.UsePersistence<InMemoryPersistence>();
             endpointConfiguration.UseTransport<MsmqTransport>();
+            endpointConfiguration.UseSerialization<JsonSerializer>();
+            endpointConfiguration.SendFailedMessagesTo("error");
             endpointConfiguration.EnableInstallers();
             endpointConfiguration.UseContainer<AutofacBuilder>(
                 customizations =>
