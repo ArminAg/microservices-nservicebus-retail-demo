@@ -18,10 +18,10 @@ namespace Shipping.Handlers
         {
             logger.Info($"Received OrderPlacedEvent, OrderId = { message.OrderId } - Should we ship now?");
 
-            return context.Publish(new StartPlanningCommand
+            return context.Send("Planning", new StartPlanningCommand
             {
                 PlanId = Guid.NewGuid().ToString(),
-                PlanName = "Test Plan"
+                PlanName = "Testing Sagas"
             });
         }
     }
