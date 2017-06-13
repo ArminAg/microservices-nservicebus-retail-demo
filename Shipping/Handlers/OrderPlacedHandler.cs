@@ -1,4 +1,5 @@
-﻿using Messages.Events;
+﻿using Messages.Commands;
+using Messages.Events;
 using NServiceBus;
 using NServiceBus.Logging;
 using System;
@@ -16,7 +17,12 @@ namespace Shipping.Handlers
         public Task Handle(OrderPlacedEvent message, IMessageHandlerContext context)
         {
             logger.Info($"Received OrderPlacedEvent, OrderId = { message.OrderId } - Should we ship now?");
-            return Task.CompletedTask;
+
+            return context.Publish(new StartPlanningCommand
+            {
+                PlanId = Guid.NewGuid().ToString(),
+                PlanName = "Test Plan"
+            });
         }
     }
 }
