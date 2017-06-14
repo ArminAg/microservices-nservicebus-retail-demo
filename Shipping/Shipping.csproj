@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Handlers\OrderBilledHandler.cs" />
     <Compile Include="Handlers\OrderPlacedHandler.cs" />
+    <Compile Include="Handlers\PlanningProcessedHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

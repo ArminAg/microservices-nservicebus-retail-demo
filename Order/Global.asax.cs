@@ -34,7 +34,7 @@ namespace Order
 
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
-            var endpointConfiguration = new EndpointConfiguration("WebApi");
+            var endpointConfiguration = new EndpointConfiguration("Order");
             endpointConfiguration.UsePersistence<InMemoryPersistence>();
             var transport = endpointConfiguration.UseTransport<MsmqTransport>();
             
