@@ -12,7 +12,7 @@ namespace Planning.Sagas
 {
     public class PlanningSaga : Saga<PlanningSagaData>,
         IAmStartedByMessages<StartPlanningCommand>,
-        IHandleMessages<IStockCheckedMessage>
+        IHandleMessages<StockCheckedMessage>
 
     {
         static ILog logger = LogManager.GetLogger<PlanningSaga>();
@@ -20,6 +20,8 @@ namespace Planning.Sagas
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<PlanningSagaData> mapper)
         {
             mapper.ConfigureMapping<StartPlanningCommand>(message => message.PlanId)
+                .ToSaga(sagaData => sagaData.PlanId);
+            mapper.ConfigureMapping<StockCheckedMessage>(message => message.PlanId)
                 .ToSaga(sagaData => sagaData.PlanId);
         }
 
@@ -30,7 +32,7 @@ namespace Planning.Sagas
             return Task.CompletedTask;
         }
 
-        public Task Handle(IStockCheckedMessage message, IMessageHandlerContext context)
+        public Task Handle(StockCheckedMessage message, IMessageHandlerContext context)
         {
             logger.Info($"Stock was checked for PlanId = { Data.PlanId }");
             return Task.CompletedTask;

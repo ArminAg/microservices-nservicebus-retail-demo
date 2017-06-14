@@ -9,5 +9,6 @@ namespace Planning.Sagas
     public class PlanningSagaData : ContainSagaData
     {
         public string PlanId { get; set; }
+        public string SomeData { get; set; }
     }
 }
