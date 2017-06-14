@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CheckStockCommand.cs" />
     <Compile Include="Commands\PlaceOrderCommand.cs" />
     <Compile Include="Commands\StartPlanningCommand.cs" />
     <Compile Include="Events\OrderBilledEvent.cs" />
