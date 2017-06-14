@@ -18,7 +18,7 @@ namespace Stock.Handlers
         {
             logger.Info($"Checking Stock for PlanId = { message.PlanId }");
             // Do checking
-            await context.Reply<StockCheckedMessage>(msg => msg.PlanId = message.PlanId).ConfigureAwait(false);
+            await context.Reply<IStockCheckedMessage>(msg => { }).ConfigureAwait(false);
         }
     }
 }

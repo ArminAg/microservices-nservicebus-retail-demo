@@ -12,7 +12,7 @@ namespace Planning.Sagas
 {
     public class PlanningSaga : Saga<PlanningSagaData>,
         IAmStartedByMessages<StartPlanningCommand>,
-        IHandleMessages<StockCheckedMessage>
+        IHandleMessages<IStockCheckedMessage>
 
     {
         static ILog logger = LogManager.GetLogger<PlanningSaga>();
@@ -21,18 +21,19 @@ namespace Planning.Sagas
         {
             mapper.ConfigureMapping<StartPlanningCommand>(message => message.PlanId)
                 .ToSaga(sagaData => sagaData.PlanId);
-            mapper.ConfigureMapping<StockCheckedMessage>(message => message.PlanId)
-                .ToSaga(sagaData => sagaData.PlanId);
         }
 
-        public Task Handle(StartPlanningCommand message, IMessageHandlerContext context)
+        public async Task Handle(StartPlanningCommand message, IMessageHandlerContext context)
         {
             logger.Info($"Planning is started for PlanId = { message.PlanId }");
             Data.PlanId = message.PlanId;
-            return Task.CompletedTask;
+            await context.Send("Stock", new CheckStockCommand
+            {
+                PlanId = message.PlanId
+            });
         }
 
-        public Task Handle(StockCheckedMessage message, IMessageHandlerContext context)
+        public Task Handle(IStockCheckedMessage message, IMessageHandlerContext context)
         {
             logger.Info($"Stock was checked for PlanId = { Data.PlanId }");
             return Task.CompletedTask;

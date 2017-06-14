@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Messages
 {
-    public class StockCheckedMessage : IMessage
+    public interface IStockCheckedMessage : IMessage
     {
-        public string PlanId { get; set; }
     }
 }
