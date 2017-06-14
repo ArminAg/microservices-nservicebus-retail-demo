@@ -6,11 +6,13 @@ using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
 using NServiceBus.Logging;
+using Messages;
 
 namespace Planning.Sagas
 {
     public class PlanningSaga : Saga<PlanningSagaData>,
-        IAmStartedByMessages<StartPlanningCommand>
+        IAmStartedByMessages<StartPlanningCommand>,
+        IHandleMessages<IStockCheckedMessage>
 
     {
         static ILog logger = LogManager.GetLogger<PlanningSaga>();
@@ -24,6 +26,13 @@ namespace Planning.Sagas
         public Task Handle(StartPlanningCommand message, IMessageHandlerContext context)
         {
             logger.Info($"Planning is started for PlanId = { message.PlanId }");
+            Data.PlanId = message.PlanId;
+            return Task.CompletedTask;
+        }
+
+        public Task Handle(IStockCheckedMessage message, IMessageHandlerContext context)
+        {
+            logger.Info($"Stock was checked for PlanId = { Data.PlanId }");
             return Task.CompletedTask;
         }
     }

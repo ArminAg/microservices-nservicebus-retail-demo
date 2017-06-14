@@ -50,6 +50,7 @@
     <Compile Include="Events\OrderBilledEvent.cs" />
     <Compile Include="Events\OrderPlacedEvent.cs" />
     <Compile Include="Events\ShippingProcessedEvent.cs" />
+    <Compile Include="IStockCheckedMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

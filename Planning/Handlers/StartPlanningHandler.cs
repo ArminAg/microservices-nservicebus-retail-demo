@@ -13,10 +13,14 @@ namespace Planning.Handlers
     {
         static ILog logger = LogManager.GetLogger<StartPlanningHandler>();
 
-        public Task Handle(StartPlanningCommand message, IMessageHandlerContext context)
+        public async Task Handle(StartPlanningCommand message, IMessageHandlerContext context)
         {
             logger.Info($"Received StartPlanningCommand, PlanId = { message.PlanId }, Planning Started");
-            return Task.CompletedTask;
+
+            await context.Send("Stock", new CheckStockCommand
+            {
+                PlanId = message.PlanId
+            });
         }
     }
 }
